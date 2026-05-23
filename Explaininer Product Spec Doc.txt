@@ -1,0 +1,1077 @@
+# Product Spec: Scalable Animated Visual Explanation System
+
+## 1. Product Summary
+
+This product is a scalable system for generating polished animated instructional videos from structured visual content, scripts, voiceover audio, and timestamp data.
+
+The initial use case is grammar instruction. A grammar chart is transformed into a high-quality MP4 explainer video in which a friendly voiceover explains the concept while animation guides the learner’s attention through the relevant parts of the chart.
+
+The broader product vision is a reusable visual explanation engine that can support any instructional visual information that benefits from guided explanation. This may eventually include grammar charts, vocabulary charts, process diagrams, timelines, reading skill visuals, test-prep visuals, tables, infographics, and other structured instructional content.
+
+The system should support both legacy products and future products. For legacy products, it creates new value from existing print or static digital assets. For future products, it establishes a structured-content workflow where visuals, scripts, audio, timing, and animation can be planned together from the beginning.
+
+## 2. Product Goal
+
+The goal is to create a repeatable production pipeline for transforming static instructional visuals into premium animated MP4 videos at scale.
+
+The system should be able to take:
+
+1. A structured visual, such as a grammar chart
+2. A level-appropriate explanation script
+3. A voiceover audio file
+4. Word-level timestamp data
+5. A structured animation timeline
+6. A Remotion composition
+7. A final rendered MP4 video
+
+The long-term goal is scalability. Once the system works for one grammar chart, it should be adaptable to many charts and visual types by changing the underlying content, script, audio, timestamp data, and animation plan rather than rebuilding each video manually.
+
+## 3. Core Product Concept
+
+The visual should function as a learning map.
+
+The learner may begin by seeing the full visual so they understand the overall structure. As the explanation progresses, the animation should move into the specific section being discussed. The learner should not have to search the screen for the relevant content.
+
+The system should move between:
+
+* Overview
+* Focused section
+* Example-level emphasis
+* Diagram or timeline activation
+* Review state
+
+The governing principle is **focus**. At every moment, the learner should know where to look and why.
+
+Focus is not one animation effect among many. It is the instructional rule that governs the entire animation system.
+
+## 4. Initial MVP Focus
+
+The MVP should focus on animated grammar chart explainers.
+
+The first successful version should produce a polished MP4 video from:
+
+* One grammar chart
+* One finalized script
+* One voiceover audio file
+* One word-level timestamp file
+* One structured animation timeline
+* One Remotion composition
+
+The MVP should prove that the system can:
+
+* Convert a grammar chart into structured visual content
+* Generate or validate a learner-appropriate script
+* Ensure the script and chart match exactly
+* Use word-level timestamps to coordinate animation timing
+* Select appropriate animation effects from a predefined effects library
+* Render a polished MP4 video in Remotion
+* Produce an output that feels intentional, crafted, and suitable for stakeholder review
+
+## 5. Target Users
+
+### 5.1 Learners
+
+The initial learner audience is adult ESL learners, especially learners around A2–B1 level.
+
+The video should support learners by:
+
+* Reducing cognitive overload
+* Showing only the relevant content at the relevant moment
+* Connecting spoken explanation to written examples
+* Making abstract grammar concepts more visible
+* Supporting comprehension through clear pacing and visual scaffolding
+
+### 5.2 Content Creators
+
+The creator audience includes:
+
+* Editors
+* Instructional designers
+* Product managers
+* Curriculum developers
+* Digital learning teams
+* Media production teams
+
+These users need a way to transform static instructional assets into animated video without manually designing every video from scratch in a traditional animation tool.
+
+### 5.3 Internal Stakeholders
+
+The system should also support stakeholder-facing demonstrations.
+
+It should help show how static or legacy instructional content can be transformed into premium digital media assets that support current products, future products, sales enablement, and digital strategy.
+
+## 6. Strategic Value
+
+### 6.1 Legacy Product Transformation
+
+For existing print or static digital assets, the system can create new value by turning charts, diagrams, tables, and instructional pages into polished video assets.
+
+This creates a pathway for transforming existing content libraries into new digital media formats without starting from scratch.
+
+### 6.2 Future Product Development
+
+For future products, the system can encourage a structured-content workflow from the beginning.
+
+Charts, scripts, examples, audio, and animation plans can be created as reusable data-driven assets rather than one-off media files.
+
+This supports:
+
+* Scalable video generation
+* Faster production
+* Easier updates
+* Reuse across levels and products
+* Versioning by market or learner level
+* Consistent instructional quality
+* Consistent visual and motion design
+* Lower marginal cost after the system is established
+
+## 7. Output Format
+
+The initial output should be MP4 video.
+
+Interactive browser-based explainers may be explored later, but they should not be part of the MVP scope.
+
+The first priority is to produce polished, reliable, shareable video assets that can be used in:
+
+* Digital courses
+* Online practice platforms
+* Teacher resources
+* Student resources
+* Product demos
+* Internal presentations
+* Sales enablement
+* Marketing prototypes
+* Platform integrations
+
+## 8. Technical Foundation
+
+The system should use **Remotion** as the video rendering engine.
+
+Remotion is the preferred foundation because it supports:
+
+* React-based visual components
+* Frame-accurate animation
+* Programmatic video generation
+* Audio synchronization
+* MP4 rendering
+* Reusable component architecture
+* Data-driven animation logic
+
+The system should avoid relying on fragile preview-only workflows such as standalone HTML animation, browser-only CSS transitions, or manually synchronized playback.
+
+All final production animation should be driven by frame-based logic.
+
+## 9. Production Pipeline
+
+### 9.1 Step 1: Structured Visual Creation
+
+The visual should be represented as structured data.
+
+For the MVP, this is a grammar chart. The chart should be decomposed into meaningful sections and subsections.
+
+The structured visual should define:
+
+* Title
+* Topic
+* Level
+* Major sections
+* Subsections
+* Examples
+* Key terms
+* Focus words or phrases
+* Diagram elements
+* Timeline elements
+* Camera regions
+* Review state
+
+Example:
+
+```json
+{
+  "chartId": "present-simple-progressive",
+  "title": "Simple Present and Present Progressive",
+  "level": "A2",
+  "sections": [
+    {
+      "id": "overview",
+      "label": "Overview"
+    },
+    {
+      "id": "timeline",
+      "label": "Time Reference",
+      "type": "timeline",
+      "elements": ["past", "now", "future"]
+    },
+    {
+      "id": "simple-present",
+      "label": "Simple Present",
+      "subsections": [
+        {
+          "id": "facts",
+          "label": "Facts and General Truths",
+          "examples": [
+            {
+              "text": "Water consists of hydrogen and oxygen.",
+              "focusWords": ["consists"]
+            },
+            {
+              "text": "The world is round.",
+              "focusWords": ["is"]
+            }
+          ]
+        },
+        {
+          "id": "habits",
+          "label": "Habits and Regular Actions",
+          "examples": [
+            {
+              "text": "I get up at seven every morning.",
+              "focusWords": ["get up"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "present-progressive",
+      "label": "Present Progressive",
+      "subsections": [
+        {
+          "id": "right-now",
+          "label": "Actions Happening Right Now",
+          "examples": [
+            {
+              "text": "The students are sitting at their desks right now.",
+              "focusWords": ["are sitting"]
+            }
+          ]
+        },
+        {
+          "id": "temporary",
+          "label": "Temporary Situations",
+          "examples": [
+            {
+              "text": "I am taking five courses this semester.",
+              "focusWords": ["am taking"]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+The structured visual should include enough information for the animation system to determine:
+
+* What the major sections are
+* What each section means
+* Which examples belong to each section
+* Which words or phrases should be emphasized
+* Which parts of the visual should be visible at each moment
+* Which camera regions should be used for focus
+
+### 9.2 Step 2: Script Generation or Validation
+
+The script should be generated from the structured visual or validated against it.
+
+The script must match the visual exactly.
+
+The script should not introduce examples, labels, terminology, or categories that do not appear in the visual unless those additions are intentionally added back into the visual before audio production.
+
+The script should follow a clear instructional pattern:
+
+1. Introduce the topic.
+2. Orient the learner to the overall visual.
+3. Explain the main sections in a logical order.
+4. Move through each section one at a time.
+5. Read and explain examples.
+6. Highlight key forms, meanings, or contrasts.
+7. Review the main takeaways.
+
+For grammar videos, the script should be:
+
+* Level-appropriate
+* Friendly
+* Clear
+* Concrete
+* Lightly conversational
+* Designed for listening
+* Free of unnecessary technical jargon
+* Compatible with TTS
+
+The final recording script should avoid special formatting or punctuation that may interfere with TTS, such as:
+
+* Markdown emphasis
+* Asterisks
+* Em dashes
+* Unnecessary parentheses
+* Complex punctuation
+* Symbols that may be read aloud incorrectly
+
+### 9.3 Step 3: Script and Visual Alignment
+
+Script and visual alignment is mandatory.
+
+Mismatches should not be treated as ordinary review flags to fix later. They should be prevented before audio generation and animation planning.
+
+The system should validate that:
+
+* Every example in the script appears in the visual.
+* Every major chart section is addressed in the script.
+* Terminology is consistent across script and chart.
+* Grammar labels match exactly.
+* Rules and explanations correspond to the correct visual sections.
+* Visual contrasts are reflected accurately in the script.
+* The script does not refer to absent diagrams, examples, labels, or visual features.
+
+Invalid mismatch examples:
+
+* The script says “present progressive” while the chart says “present continuous.”
+* The script reads an example that is not on screen.
+* The chart includes a major section that the script never explains.
+* The script introduces a contrast that the visual does not represent.
+* The visual uses one tense label while the narration uses another.
+* The script says “look at this timeline” but no timeline is shown.
+* The script mentions a rule but the visual does not support it.
+
+The script and chart should be reconciled before audio production, because once audio is generated, changes become more expensive.
+
+### 9.4 Step 4: Audio Generation
+
+The approved script should be converted into a single voiceover audio file.
+
+The audio may be generated by TTS or recorded by a human narrator.
+
+Requirements:
+
+* One continuous audio file
+* No spoken segment labels
+* Natural pacing for the learner level
+* Clear pronunciation of example sentences
+* Slight pauses between conceptual sections
+* No background music in the source narration
+* Final audio saved with a stable file name
+* Final script saved alongside the audio
+
+For the MVP, the audio can be stored as:
+
+```txt
+audio.mp3
+```
+
+### 9.5 Step 5: Word-Level Timestamp Generation
+
+The audio should be processed through speech-to-text to generate word-level timestamps.
+
+Word-level timestamps are required because they allow animation events to sync to specific spoken words or phrases.
+
+Example:
+
+```json
+{
+  "word": "habits",
+  "start": 46.58,
+  "end": 47.02
+}
+```
+
+The timestamp data should be used to identify:
+
+* Section starts
+* Example starts
+* Key grammar terms
+* Verb phrases
+* Contrast words
+* Review language
+* Moments where diagrams should activate
+* Moments where emphasis should occur
+
+Manual timestamps may be acceptable for rough prototyping, but they are not scalable for production.
+
+### 9.6 Step 6: Animation Planning
+
+The system should generate an animation timeline from:
+
+* Structured visual data
+* Final script
+* Word-level timestamp data
+* Approved animation effects
+* Design and motion rules
+
+The timeline should specify:
+
+* Camera target
+* Active section
+* Active example
+* Effect type
+* Start time
+* End time
+* Duration
+* Intensity
+* Related words or phrases
+* Review state
+* Transition state
+
+Example:
+
+```json
+{
+  "fps": 30,
+  "durationSeconds": 146,
+  "cameraStates": [
+    {
+      "id": "overview-intro",
+      "start": 0,
+      "end": 8,
+      "target": "overview",
+      "effect": "cameraFocus",
+      "intensity": "low"
+    },
+    {
+      "id": "timeline-focus",
+      "start": 8,
+      "end": 18,
+      "target": "timeline",
+      "effect": "timelineDiagramAnimation",
+      "intensity": "medium"
+    },
+    {
+      "id": "simple-present-facts",
+      "start": 19,
+      "end": 47,
+      "target": "simple-present.facts",
+      "effect": "cameraFocus",
+      "intensity": "high"
+    }
+  ],
+  "events": [
+    {
+      "time": 21.74,
+      "type": "exampleActivation",
+      "target": "simple-present.facts.example-1"
+    },
+    {
+      "time": 22.4,
+      "type": "highlightEmphasis",
+      "target": "simple-present.facts.example-1.focusWords.consists"
+    }
+  ]
+}
+```
+
+### 9.7 Step 7: Remotion Rendering
+
+The Remotion composition should consume:
+
+* Chart JSON
+* Script metadata
+* Audio file
+* Timestamp JSON
+* Animation timeline JSON
+* Theme settings
+* Motion presets
+
+The video should be rendered as MP4.
+
+The Remotion project should be structured so that new videos can be generated by replacing data files rather than rewriting the core composition.
+
+## 10. Focus as the Governing Principle
+
+Focus is the central principle of the system.
+
+Focus is not one animation effect among many. It is the instructional rule that governs when and how effects are used.
+
+At any moment, the learner should know:
+
+* What they are looking at
+* Why they are looking at it
+* How it connects to the narration
+* What part of the visual matters right now
+
+If the script is explaining one section of a chart, that section should dominate the screen.
+
+If the script is reading one example, that example should become visually active.
+
+If the script is reviewing the whole concept, the full visual can return.
+
+Large visuals should not remain fully visible during detailed explanation unless there is a specific pedagogical reason. The system should manage attention by moving between overview and focused views.
+
+## 11. Animation Effects Library
+
+The system should use a predefined library of animation effects.
+
+These effects are not decorative by default. They serve a pedagogical purpose by reducing cognitive overload, directing learner attention, and helping learners connect spoken explanation to visual information.
+
+However, each effect should allow subtle artistic flourishes. These flourishes are what make the output feel intentional, crafted, and premium rather than mechanical or template-driven.
+
+For example, text should not simply appear. It might settle gently into place, respond to the rhythm of the narration, or arrive with a slight sense of physicality.
+
+The instructional purpose comes first, but the execution should also delight the viewer.
+
+The AI should choose from these predetermined effects based on the script and the visual structure. The AI should not invent new animation types during production. Instead, it should map each part of the script to the most appropriate effect or combination of effects.
+
+### 11.1 Effect 1: Camera Focus
+
+Camera Focus moves the viewer from a broad visual overview into the exact section being explained.
+
+This may include:
+
+* Zooming
+* Panning
+* Reframing
+* Moving between defined visual regions
+* Shifting from full visual to section view
+* Moving from section view to example view
+
+Camera Focus should be used when the narration moves to a new conceptual area.
+
+In the MVP, this applies to grammar chart sections. In future versions, it could apply to any structured visual information.
+
+Camera Focus should feel intentional and spatial, not like a generic slide zoom. The movement should have weight, momentum, and a clear destination.
+
+The learner should feel that the camera is guiding them through the information, not merely enlarging part of a slide.
+
+Possible artistic flourishes:
+
+* Slight anticipation before movement
+* Smooth acceleration and deceleration
+* Gentle parallax between visual layers
+* Subtle depth-of-field effect
+* Soft easing as the camera settles
+* Small final correction that makes the movement feel human-crafted
+
+### 11.2 Effect 2: Progressive Reveal
+
+Progressive Reveal introduces information gradually, in sync with the explanation.
+
+This effect is used for:
+
+* Examples
+* Labels
+* Rules
+* Rows
+* Bullets
+* Diagram parts
+* Subsections
+* Supporting notes
+
+Progressive Reveal prevents learners from being overwhelmed by the full amount of information before they are ready for it.
+
+The reveal should be clean and readable, but not lifeless.
+
+Possible artistic flourishes:
+
+* Text slides gently into place
+* Text fades in with a slight upward motion
+* Rows reveal in a staggered sequence
+* Words settle with subtle physicality
+* A line appears as though drawn by an invisible pen
+* Supporting information appears after the main idea, not at the same time
+
+The reveal should always support comprehension.
+
+### 11.3 Effect 3: Highlight and Emphasis
+
+Highlight and Emphasis draws attention to key language, visual features, or instructional contrasts.
+
+This effect may emphasize:
+
+* Verb forms
+* Tense names
+* Signal words
+* Rules
+* Contrasting examples
+* Important labels
+* Repeated language patterns
+* Key parts of a diagram
+
+Possible techniques:
+
+* Soft glow
+* Underline
+* Color shift
+* Pulse
+* Callout ring
+* Subtle scale change
+* Accent background
+* Gentle brightness bloom
+
+The style should avoid generic marker-like highlighting unless that is a deliberate design choice.
+
+Emphasis should feel integrated into the visual system, with restrained color, timing, and motion.
+
+Possible artistic flourishes:
+
+* A highlight blooms and settles
+* A verb phrase briefly lifts forward
+* A key word brightens in sync with the narration
+* A soft underline draws itself beneath a phrase
+* A contrast color appears only when needed, then fades back
+
+### 11.4 Effect 4: Timeline and Diagram Animation
+
+Timeline and Diagram Animation brings abstract visual models to life.
+
+This effect is used when the visual includes:
+
+* Time
+* Sequence
+* Duration
+* Repetition
+* Process
+* Comparison
+* Movement
+* Cause and effect
+* Before and after
+* Start and finish
+
+In grammar videos, this may include:
+
+* Past-now-future timelines
+* Arcs showing temporary duration
+* Tick marks showing repeated habits
+* Arrows showing sequence
+* Dots showing current position
+* Loops showing repeated action
+
+The purpose is to make abstract meaning visible.
+
+The animation should help the learner understand the concept, not simply decorate the diagram.
+
+Possible artistic flourishes:
+
+* Timeline draws from left to right
+* A “now” marker pulses gently
+* Repeated ticks ripple outward
+* An arc draws with a moving dot
+* A temporary action line fades before reaching “forever”
+* Diagram labels appear only when relevant
+
+### 11.5 Effect 5: Example Activation
+
+Example Activation connects the spoken example to the written example on screen.
+
+When the narration reads an example sentence, that sentence should become active.
+
+This may include:
+
+* Revealing the sentence
+* Enlarging the sentence area
+* Emphasizing the verb phrase
+* Highlighting a signal word
+* Linking the sentence visually to a rule
+* Dimming other examples
+* Activating only the relevant part of the example
+
+This effect is especially important for language learning because it connects form, meaning, and use.
+
+Learners should always know which example the narration is discussing.
+
+Possible artistic flourishes:
+
+* Sentence card rises gently into view
+* Active example gets a soft focus glow
+* Verb phrase lands with a subtle pulse
+* Example and rule are linked with a fine animated line
+* Inactive examples recede slightly
+* The active example settles into place as the narration completes it
+
+### 11.6 Effect 6: Instructional Transition
+
+Instructional Transition moves the learner from one teaching beat to the next.
+
+This may include transitions between:
+
+* Sections
+* Rules
+* Examples
+* Diagrams
+* Review states
+* Overview and focus
+* One contrastive concept and another
+
+The transition should make the lesson structure clear without interrupting the flow.
+
+Instructional transitions should avoid feeling like separate slides unless a clear break is pedagogically useful.
+
+The preferred approach is a continuous guided movement through the visual information.
+
+Possible artistic flourishes:
+
+* Camera glides from one section to another
+* Previous section recedes while the next section comes forward
+* A visual thread leads from old concept to new concept
+* Motion follows the logic of the visual layout
+* A transition briefly reveals where the learner is in the larger structure
+* The next section begins to appear before the previous one fully exits
+
+## 12. AI Role
+
+The AI should act as an instructional animation planner.
+
+It should analyze the relationship between the visual and the script, then produce a structured animation plan using the approved effects library.
+
+The AI should not freely invent animation styles for each project. It should operate within a controlled animation system so outputs remain consistent, scalable, and brand-safe.
+
+The AI should:
+
+1. Analyze the visual structure.
+2. Identify major sections and subsections.
+3. Generate or validate the script.
+4. Ensure the script and visual match exactly.
+5. Identify meaningful focus regions.
+6. Select from the approved animation effects library.
+7. Use timestamp data to generate a timing plan.
+8. Produce a Remotion-ready animation timeline.
+9. Preserve pedagogical clarity.
+10. Apply tasteful creative flourishes within approved effect types.
+
+The AI should choose effects based on the instructional need.
+
+For example:
+
+* If the script introduces a new section, use Camera Focus.
+* If the script introduces examples one by one, use Progressive Reveal.
+* If the script says a key verb form, use Highlight and Emphasis.
+* If the script explains time or sequence, use Timeline and Diagram Animation.
+* If the script reads an example, use Example Activation.
+* If the script moves to a new teaching beat, use Instructional Transition.
+
+## 13. Human Role
+
+The human creator should remain responsible for instructional approval.
+
+The human should approve:
+
+* Final visual structure
+* Final terminology
+* Final example set
+* Final script
+* Voice and pacing
+* Overall visual style
+* Final video output
+
+The human should be able to review the generated animation plan before rendering.
+
+The human should not need to manually create every animation cue, but should be able to edit or override the plan when needed.
+
+## 14. Design Direction
+
+The initial design direction should be clean, editorial, and premium.
+
+The visual style should avoid looking like a direct textbook screenshot or a PowerPoint slide.
+
+Recommended visual qualities:
+
+* Warm off-white or linen background
+* Near-black body type
+* Restrained accent color
+* Strong typographic hierarchy
+* Custom SVG timelines and diagrams
+* Generous spacing
+* Clear layout
+* Minimal visual clutter
+* Subtle texture or depth
+* Elegant motion
+* Designed chart components rather than copied page layouts
+
+The visual design should feel suitable for a premium instructional product.
+
+## 15. Motion Design Requirements
+
+The motion should feel intentional and crafted.
+
+Required motion qualities:
+
+* Camera movement should have momentum.
+* Zooms should feel spatial and purposeful.
+* Transitions should support the logic of the explanation.
+* Text should reveal in a polished but readable way.
+* Verb and keyword emphasis should feel integrated.
+* Diagrams should animate in ways that clarify meaning.
+* The pacing should follow the voiceover.
+* Effects should never compete with comprehension.
+
+Avoid:
+
+* Generic slide transitions
+* Mechanical fade-ins
+* Constant-speed zooms
+* Overuse of full-screen title cards
+* Random animation variety
+* Decorative motion with no instructional purpose
+* Keeping large charts fully visible during detailed explanation
+* Highlighting too many things at once
+
+## 16. Scalability Requirements
+
+The system should be designed for reuse.
+
+It should eventually support:
+
+* Multiple grammar topics
+* Multiple learner levels
+* Multiple chart types
+* Multiple visual themes
+* Different narration voices
+* Different video lengths
+* Different output formats in the future
+* Legacy content
+* New product content
+
+The system should separate:
+
+1. Content data
+2. Visual structure
+3. Script
+4. Audio
+5. Timestamp data
+6. Animation timeline
+7. Motion effects
+8. Rendering engine
+9. Theme settings
+
+This separation allows new videos to be produced by changing the data rather than rebuilding the entire animation manually.
+
+## 17. Example System Architecture
+
+Recommended project structure:
+
+```txt
+visual-explainer/
+  public/
+    audio.mp3
+  src/
+    Root.tsx
+    Composition.tsx
+    components/
+      ChartRenderer.tsx
+      CameraStage.tsx
+      TimelineDiagram.tsx
+      ExampleCard.tsx
+      HighlightedText.tsx
+    data/
+      chart.json
+      script.json
+      timestamps.json
+      animationTimeline.json
+      theme.json
+    effects/
+      cameraFocus.ts
+      progressiveReveal.ts
+      highlightEmphasis.ts
+      diagramAnimation.ts
+      exampleActivation.ts
+      instructionalTransition.ts
+    utils/
+      timeToFrame.ts
+      easing.ts
+      cueMatcher.ts
+```
+
+The Remotion composition should consume data files and effect presets.
+
+The goal is to avoid hardcoded one-off animations.
+
+## 18. Example Animation Timeline
+
+```json
+{
+  "video": {
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "durationSeconds": 146,
+    "audio": "audio.mp3"
+  },
+  "states": [
+    {
+      "id": "intro-overview",
+      "startTime": 0,
+      "endTime": 8,
+      "cameraTarget": "overview",
+      "effects": [
+        {
+          "type": "progressiveReveal",
+          "target": "title"
+        },
+        {
+          "type": "cameraFocus",
+          "target": "overview",
+          "intensity": "low"
+        }
+      ]
+    },
+    {
+      "id": "timeline-explanation",
+      "startTime": 8,
+      "endTime": 18,
+      "cameraTarget": "timeline",
+      "effects": [
+        {
+          "type": "timelineDiagramAnimation",
+          "target": "mainTimeline"
+        },
+        {
+          "type": "highlightEmphasis",
+          "target": "nowMarker"
+        }
+      ]
+    },
+    {
+      "id": "simple-present-facts",
+      "startTime": 19,
+      "endTime": 47,
+      "cameraTarget": "simplePresent.facts",
+      "effects": [
+        {
+          "type": "cameraFocus",
+          "target": "simplePresent.facts",
+          "intensity": "high"
+        },
+        {
+          "type": "exampleActivation",
+          "target": "facts.examples",
+          "sync": "wordLevel"
+        },
+        {
+          "type": "highlightEmphasis",
+          "target": "facts.verbPhrases"
+        }
+      ]
+    }
+  ]
+}
+```
+
+## 19. MVP Requirements
+
+The MVP should produce one complete animated grammar explainer video.
+
+### MVP Inputs
+
+* One structured grammar chart
+* One finalized script
+* One audio file
+* One word-level timestamp JSON file
+* One approved visual theme
+* One animation timeline
+* One Remotion project
+
+### MVP Output
+
+* One rendered MP4
+* One reusable Remotion composition
+* One chart JSON file
+* One script file
+* One timestamp JSON file
+* One animation timeline JSON file
+* Documentation of the production workflow
+
+### MVP Success Criteria
+
+The MVP is successful if:
+
+* The video renders successfully as MP4.
+* Audio and animation are accurately synchronized.
+* The script and chart match exactly.
+* The learner sees only the relevant section during detailed explanation.
+* Examples activate when they are spoken.
+* Key grammar forms are emphasized at the right moment.
+* Diagram animations clarify meaning.
+* The final video feels polished enough for stakeholder review.
+* The architecture can plausibly support another chart without rebuilding from scratch.
+
+## 20. Future Expansion
+
+Although grammar charts are the initial use case, the system should eventually support any visual information that benefits from guided explanation.
+
+Future supported visual types may include:
+
+* Vocabulary charts
+* Reading skill diagrams
+* Writing process diagrams
+* Listening task visuals
+* Test-prep visuals
+* Timelines
+* Flowcharts
+* Tables
+* Infographics
+* Process diagrams
+* Comparison charts
+* Assessment walkthroughs
+
+The long-term product vision is a scalable visual explanation engine for instructional content.
+
+## 21. Future Creator Workflow
+
+A future creator workflow could look like this:
+
+1. Upload or select a visual.
+2. Convert the visual into structured data.
+3. Identify sections and subsections.
+4. Generate or edit the explanation script.
+5. Validate script and visual alignment.
+6. Generate or upload audio.
+7. Generate word-level timestamps.
+8. Generate animation timeline.
+9. Preview animation.
+10. Edit or approve animation plan.
+11. Render MP4.
+12. Store video and source data for reuse.
+
+## 22. Key Product Principles
+
+### 22.1 Script and Visual Must Match
+
+The script and visual should be generated, edited, or validated together.
+
+No mismatches should proceed into animation.
+
+### 22.2 Focus Comes First
+
+Animation exists to guide learner attention.
+
+A polished effect is only successful if it makes the explanation easier to follow.
+
+### 22.3 Effects Are Controlled
+
+The AI chooses from a predetermined effects library.
+
+This keeps the system scalable, consistent, and brand-safe.
+
+### 22.4 Artistic Flourish Matters
+
+The effects should not feel mechanical.
+
+Small creative choices make the output feel premium, crafted, and delightful.
+
+### 22.5 Remotion Is the Rendering Engine
+
+Final production should use Remotion for frame-accurate animation and reliable MP4 output.
+
+### 22.6 Data Drives Scalability
+
+The system should separate content, script, timing, effects, and rendering logic.
+
+This allows the system to scale across products, levels, and visual types.
+
+## 23. Recommended Next Step
+
+Build a 30–45 second Remotion proof of concept using the final architecture.
+
+The proof should include:
+
+* Full visual overview
+* Camera focus into one section
+* Progressive reveal of examples
+* Example activation synced to timestamp data
+* Highlight and emphasis on key grammar forms
+* Timeline or diagram animation if relevant
+* One instructional transition
+* Rendered MP4 output
+
+The goal of the proof is not to finish the whole video immediately. The goal is to validate the scalable production model, the animation effects library, and the instructional value of section-based focus.
+
+Once the 30–45 second proof is approved, the same system can be expanded to the full grammar video and then generalized to additional visual content.
